@@ -546,7 +546,7 @@ public class VerticalStepperFormLayout extends RelativeLayout implements View.On
             setUpStep(i);
         }
         // Set up confirmation step
-       // setUpStep(numberOfSteps);
+        setUpStep(numberOfSteps);
     }
 
     protected void setUpStep(int stepNumber) {
@@ -555,10 +555,21 @@ public class VerticalStepperFormLayout extends RelativeLayout implements View.On
             // The content of the step is the corresponding custom view previously created
             RelativeLayout stepContent = (RelativeLayout) stepLayout.findViewById(R.id.step_content);
             stepContent.addView(stepContentViews.get(stepNumber));
-        } else {
-            setUpStepLayoutAsConfirmationStepLayout(stepLayout);
+            addStepToContent(stepLayout);
+        } else if (stepNumber < numberOfSteps) {
+            //setUpStepLayoutAsConfirmationStepLayout(stepLayout);
+            RelativeLayout stepContent = (RelativeLayout) stepLayout.findViewById(R.id.step_content);
+            stepContent.addView(stepContentViews.get(stepNumber));
+            confirmationButton = (AppCompatButton) stepLayout.findViewById(R.id.next_step);
+            confirmationButton.setText(R.string.vertical_form_stepper_form_confirm_button);
+            confirmationButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    prepareSendingAndSend();
+                }
+            });
+            addStepToContent(stepLayout);
         }
-        addStepToContent(stepLayout);
     }
 
     protected void addStepToContent(LinearLayout stepLayout) {
