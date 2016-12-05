@@ -546,12 +546,12 @@ public class VerticalStepperFormLayout extends RelativeLayout implements View.On
             setUpStep(i);
         }
         // Set up confirmation step
-        setUpStep(numberOfSteps);
+       // setUpStep(numberOfSteps);
     }
 
     protected void setUpStep(int stepNumber) {
         LinearLayout stepLayout = createStepLayout(stepNumber);
-        if (stepNumber < numberOfSteps) {
+        if (stepNumber < numberOfSteps - 1) {
             // The content of the step is the corresponding custom view previously created
             RelativeLayout stepContent = (RelativeLayout) stepLayout.findViewById(R.id.step_content);
             stepContent.addView(stepContentViews.get(stepNumber));
